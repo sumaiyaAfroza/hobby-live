@@ -22,7 +22,7 @@ const MyGroups = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://a10-hobbyhub-server.vercel.app/myGroups/${id}`,
+          `http://localhost:3000/myGroups/${id}`,
           {
             method: "DELETE",
           }

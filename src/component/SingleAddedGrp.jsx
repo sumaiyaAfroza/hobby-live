@@ -31,10 +31,10 @@ groupName,category,maxMembers,imageUrl,_id,startDate} = singleData
   </td>
   <td className="text-center flex items-center justify-center gap-2">
      <button className="btn btn-sm btn-outline btn-accent hover:scale-105 transition-transform">
-      Bids
+      info
     </button>
 
-    <Link to={`/update/${_id}`}>
+    <Link to={`/updateGroup/${_id}`}>
       <button className="btn btn-sm btn-outline btn-primary hover:scale-105 transition-transform">
         Update
       </button>

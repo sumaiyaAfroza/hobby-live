@@ -1,66 +1,220 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
+
+import React, { useContext, useState } from "react";
+import { Link } from "react-router"; // ✅ Correct import
 import { AuthContext } from "../Context/AuthProvider";
+import { ThemeContext } from "../Context/Theme";
 
 const Navbar = () => {
-  const {user,logOut} = useContext(AuthContext)
-  
+  const { user, logOut } = useContext(AuthContext);
+  const { theme, setTheme } = useContext(ThemeContext);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <nav className="bg-white shadow-md py-4 px-6 flex justify-between items-center sticky top-0 mb-10 z-50">
-      {/* Logo/Name */}
-      <Link to="/" className="text-2xl font-bold text-indigo-600">
-        HobbyHub
-      </Link>
+    <nav className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <Link
+          to="/"
+          className="text-2xl font-bold text-indigo-600 dark:text-indigo-400"
+        >
+          HobbyHub
+        </Link>
 
-      {/* Links */}
-      <ul className="flex items-center gap-6 text-gray-700">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/groups">All Groups</Link>
-        </li>
-        {
-          user && <>
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button
+            onClick={toggleMenu}
+            className="text-3xl text-gray-800 dark:text-white"
+          >
+            {menuOpen ? "×" : "≡"}
+          </button>
+        </div>
+
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex items-center gap-6 text-gray-700 dark:text-gray-200">
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/groups">All Groups</Link></li>
+
+          {user && (
+            <>
+              <li><Link to="/createGroup">Create Group</Link></li>
+              <li><Link to={`/myGroups/${user.uid}`}>My Groups</Link></li>
+            </>
+          )}
+
+          {!user && (
+            <li>
+              <Link
+                to="/login"
+                className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
+              >
+                Login / Register
+              </Link>
+            </li>
+          )}
+
+          {user && (
+            <li className="flex items-center gap-3">
+              <img
+                src={user.photoURL}
+                alt="user"
+                className="w-10 h-10 rounded-full border"
+                title={user.displayName}
+              />
+              <button
+                onClick={logOut}
+                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </li>
+          )}
+
           <li>
-          <Link to="/createGroup">Create Group</Link>
-        </li>
-        <li>
-          <Link to={`/myGroups/${user?.uid}`}>My Groups</Link>
-        </li>
-          </>
-        }
-
-        {!user && (
-          <li>
-            <Link
-              to="/login"
-              className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
-            >
-              Login / Register
-            </Link>
-          </li>
-        )}
-
-        {user && (
-          <li className="flex items-center gap-3">
-            <img
-              src={user.photoURL}
-              alt="user"
-              className="w-10 h-10 rounded-full border"
-              title={user.displayName}
-            />
-            <button
-              onClick={logOut}
-              className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-            >
-              Logout
+            <button onClick={handleTheme}>
+              {theme === "light" ? "🌙" : "🌞"}
             </button>
           </li>
-        )}
-      </ul>
+        </ul>
+      </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden px-4 pb-4">
+          <ul className="flex flex-col gap-4 text-gray-700 dark:text-gray-200">
+            <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
+            <li><Link to="/groups" onClick={toggleMenu}>All Groups</Link></li>
+
+            {user && (
+              <>
+                <li><Link to="/createGroup" onClick={toggleMenu}>Create Group</Link></li>
+                <li><Link to={`/myGroups/${user.uid}`} onClick={toggleMenu}>My Groups</Link></li>
+              </>
+            )}
+
+            {!user && (
+              <li>
+                <Link
+                  to="/login"
+                  onClick={toggleMenu}
+                  className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
+                >
+                  Login / Register
+                </Link>
+              </li>
+            )}
+
+            {user && (
+              <li className="flex items-center gap-3">
+                <img
+                  src={user.photoURL}
+                  alt="user"
+                  className="w-10 h-10 rounded-full border"
+                  title={user.displayName}
+                />
+                <button
+                  onClick={() => {
+                    logOut();
+                    toggleMenu();
+                  }}
+                  className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </li>
+            )}
+
+            <li>
+              <button onClick={handleTheme}>
+                {theme === "light" ? "🌙" : "🌞"}
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
     </nav>
   );
 };
 
 export default Navbar;
+
+
+
+
+
+
+// import React, { useContext } from "react";
+// import { Link } from "react-router"; // Updated from 'react-router'
+// import { AuthContext } from "../Context/AuthProvider";
+// import { ThemeContext } from "../Context/Theme";
+
+// const Navbar = () => {
+//   const { user, logOut } = useContext(AuthContext);
+//   const { theme, setTheme } = useContext(ThemeContext); // useContext instead of use()
+
+//   const handleTheme = () => {
+//     setTheme(theme === 'light' ? 'dark' : 'light');
+//   };
+
+//   return (
+//     <nav className="bg-white dark:bg-gray-900 shadow-md py-4 px-6 flex justify-between items-center sticky top-0 mb-10 z-50">
+//       <Link to="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+//         HobbyHub
+//       </Link>
+
+//       <ul className="flex items-center gap-6 text-gray-700 dark:text-gray-200">
+//         <li><Link to="/">Home</Link></li>
+//         <li><Link to="/groups">All Groups</Link></li>
+
+//         {user && (
+//           <>
+//             <li><Link to="/createGroup">Create Group</Link></li>
+//             <li><Link to={`/myGroups/${user.uid}`}>My Groups</Link></li>
+//           </>
+//         )}
+
+//         {!user && (
+//           <li>
+//             <Link
+//               to="/login"
+//               className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
+//             >
+//               Login / Register
+//             </Link>
+//           </li>
+//         )}
+
+//         {user && (
+//           <li className="flex items-center gap-3">
+//             <img
+//               src={user.photoURL}
+//               alt="user"
+//               className="w-10 h-10 rounded-full border"
+//               title={user.displayName}
+//             />
+//             <button
+//               onClick={logOut}
+//               className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+//             >
+//               Logout
+//             </button>
+//           </li>
+//         )}
+//         <li>
+//           <button onClick={handleTheme}>
+//             {theme === 'light' ? '🌙' : '🌞'}
+//           </button>
+//         </li>
+//       </ul>
+//     </nav>
+//   );
+// };
+
+// export default Navbar;

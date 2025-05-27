@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, NavLink } from "react-router";
 import MainLayout from "../Layout/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -8,8 +8,10 @@ import PrivateRoute from "./PrivateRoute";
 import MyGroups from "../pages/MyGroups";
 import CreateGroup from "../pages/CreateGroup";
 import Error from "../component/Error";
-import Details from "../component/Details";
+
 import Update from "../component/Update";
+import Details from "../component/Details";
+
 
 
 
@@ -21,7 +23,7 @@ export const router = createBrowserRouter([
             {
                 index:true,
                 Component: Home,
-                loader:()=>fetch('https://a10-hobbyhub-server.vercel.app/hobbies')
+                loader:()=>fetch('http://localhost:3000/hobbies')
             },
             {
                 path:'/login',
@@ -34,27 +36,27 @@ export const router = createBrowserRouter([
             {
                 path: '/groups',
                 Component: AllGroup,
-                loader: ()=>fetch('https://a10-hobbyhub-server.vercel.app/hobbies')
+                loader: ()=>fetch('http://localhost:3000/hobbies')
             },
             {
                 path:'/hobbies/:id',
-                element:<PrivateRoute><Details></Details></PrivateRoute>,
-                loader: ({params})=>fetch(`https://a10-hobbyhub-server.vercel.app/hobbies/${params.id}`)
+                element:<PrivateRoute> <Details></Details> </PrivateRoute> ,
+                loader: ({params})=>fetch(`http://localhost:3000/hobbies/${params.id}`)
                 
             },
             {
                 path:'/myGroups/:id',
                 element: <PrivateRoute> <MyGroups></MyGroups> </PrivateRoute>,
-                loader: ({params})=> fetch(`https://a10-hobbyhub-server.vercel.app/myGroups/${params.id}`)
+                loader: ({params})=> fetch(`http://localhost:3000/myGroups/${params.id}`)
             },
             {
                 path:'/createGroup',
                 element: <PrivateRoute> <CreateGroup></CreateGroup>  </PrivateRoute>
             },
             {
-                path:' /updateGroup/:id',
-                Component: Update,
-                loader: ({params})=>fetch(`https://a10-hobbyhub-server.vercel.app/myGroups/${params.id}`)
+                path:'/updateGroup/:id',
+                element: <PrivateRoute> <Update></Update></PrivateRoute>,
+                loader: ({params})=>fetch(`http://localhost:3000/updateGrp/${params.id}`)
             }
 
         ] 
@@ -65,4 +67,3 @@ export const router = createBrowserRouter([
         element: <Error></Error>
     }  
 ])
-
