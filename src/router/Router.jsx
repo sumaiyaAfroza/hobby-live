@@ -8,11 +8,8 @@ import PrivateRoute from "./PrivateRoute";
 import MyGroups from "../pages/MyGroups";
 import CreateGroup from "../pages/CreateGroup";
 import Error from "../component/Error";
-
 import Update from "../component/Update";
 import Details from "../component/Details";
-
-
 
 
 export const router = createBrowserRouter([
@@ -41,8 +38,7 @@ export const router = createBrowserRouter([
             {
                 path:'/hobbies/:id',
                 element:<PrivateRoute> <Details></Details> </PrivateRoute> ,
-                loader: ({params})=>fetch(`http://localhost:3000/hobbies/${params.id}`)
-                
+                loader: ({params})=>fetch(`http://localhost:3000/hobbies/${params.id}`)   
             },
             {
                 path:'/myGroups/:id',
@@ -58,10 +54,8 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute> <Update></Update></PrivateRoute>,
                 loader: ({params})=>fetch(`http://localhost:3000/updateGrp/${params.id}`)
             }
-
         ] 
     },
-
     {
         path: "*",
         element: <Error></Error>
