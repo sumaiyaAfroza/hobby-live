@@ -30,7 +30,7 @@ const CreateGroup = () => {
       uid: user?.uid || "",
     };
 
-    fetch("http://localhost:3000/hobbies", {
+    fetch("https://a10-hobbyhub-server.vercel.app/hobbies", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(groupData),
@@ -249,7 +249,7 @@ export default CreateGroup;
 //     };
 //     console.log("Group Created:", groupData);
 //     // তুমি এখানে Firebase বা backend এ পাঠাতে পারো 
-//     fetch('http://localhost:3000/hobbies',{
+//     fetch('https://a10-hobbyhub-server.vercel.app/hobbies',{
 //       method: "POST",
 //       headers: {"content-type" : "application/json"},
 //       body: JSON.stringify(groupData)
