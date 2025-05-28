@@ -1,9 +1,10 @@
 import React from 'react'
+import toast from 'react-hot-toast'
 import { useLoaderData } from 'react-router'
 
 const Details = () => {
     const dataLoader = useLoaderData()
-    // console.log(dataLoader)
+    console.log(dataLoader)
 
     const {
     groupName,
@@ -17,7 +18,12 @@ const Details = () => {
     userEmail,
   } = dataLoader
 
-  
+  const isGroupActive = new Date(startDate) > new Date();
+  const handleJoinGroup = () => {
+    toast.success(`You have requested to join ${groupName}`);
+    console.log(`Join request for group: ${groupName}`);
+  };
+
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-700 rounded-2xl shadow-xl">
       {/* Image */}
@@ -57,6 +63,18 @@ const Details = () => {
         <div className="md:col-span-2">
           <span className="font-medium">📧 Contact:</span> {userEmail}
         </div>
+        {isGroupActive ? (
+            <button
+              onClick={handleJoinGroup}
+              className="btn btn-primary w-full"
+            >
+              Join Group
+            </button>
+          ) : (
+            <p className="text-red-500 font-semibold text-center w-full">
+              This group is no longer active.
+            </p>
+          )}
       </div>
     </div>
   )

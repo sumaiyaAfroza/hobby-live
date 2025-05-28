@@ -3,11 +3,11 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-10 mt-10">
+    <footer className=" dark:bg-gray-900 text-gray-300 py-10 mt-10">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* About Section */}
         <div>
-          <h2 className="text-xl font-bold text-white mb-4">HobbyHub</h2>
+          <h2 className="text-xl font-bold darktext-white mb-4">HobbyHub</h2>
           <p className="text-sm">
             HobbyHub is your go-to platform to discover or create local hobby groups.
             Share your passion and connect with like-minded people.

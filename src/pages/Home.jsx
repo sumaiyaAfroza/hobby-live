@@ -3,7 +3,6 @@ import Banner from '../component/Banner'
 import Extra from '../component/Extra'
 import { useLoaderData } from 'react-router'
 import Card from '../component/Card'
-import { ThemeContext } from '../Context/Theme'
 
 
 

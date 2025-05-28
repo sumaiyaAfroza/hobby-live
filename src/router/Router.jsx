@@ -11,6 +11,7 @@ import Error from "../component/Error";
 
 import Update from "../component/Update";
 import Details from "../component/Details";
+import Loading from "../component/Loading";
 
 
 
@@ -36,13 +37,14 @@ export const router = createBrowserRouter([
             {
                 path: '/groups',
                 Component: AllGroup,
-                loader: ()=>fetch('https://a10-hobbyhub-server.vercel.app/hobbies')
+                loader: ()=>fetch('https://a10-hobbyhub-server.vercel.app/hobbies'),
+                hydrateFallbackElement: <Loading></Loading>
             },
             {
                 path:'/hobbies/:id',
                 element:<PrivateRoute> <Details></Details> </PrivateRoute> ,
-                loader: ({params})=>fetch(`https://a10-hobbyhub-server.vercel.app/hobbies/${params.id}`)
-                
+                loader: ({params})=>fetch(`https://a10-hobbyhub-server.vercel.app/hobbies/${params.id}`),
+                hydrateFallbackElement: <Loading></Loading>
             },
             {
                 path:'/myGroups/:id',

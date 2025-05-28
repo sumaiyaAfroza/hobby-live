@@ -38,6 +38,17 @@ const CreateGroup = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          e.target.reset();
+        // ✅ Reset the form state
+        setFormData({
+          groupName: "",
+          category: "",
+          description: "",
+          location: "",
+          maxMembers: "",
+          startDate: "",
+          imageUrl: "",
+        });
           Swal.fire({
             title: "Your Group Created Successfully!",
             icon: "success",
