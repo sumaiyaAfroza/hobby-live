@@ -11,7 +11,9 @@ const Home = () => {
   return (
     <div className='p-4'>
       <Banner />
-      <h1 className='text-xl font-bold text-black dark:text-white'>Welcome</h1>
+      <h1 className='text-4xl mt-16 font-bold text-indigo-900  dark:text-white text-center '>
+        Explore This Hobby
+      </h1>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mt-4'>
         {
           loader.slice(0, 6).map((data, i) =>

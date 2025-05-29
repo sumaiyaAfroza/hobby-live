@@ -1,26 +1,33 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router'; // Fixed import
+import { Link, useNavigate } from 'react-router'; // Fixed import to use react-router-dom
 import { AuthContext } from '../Context/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const { googleLogin, login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    console.log(email, password);
+  e.preventDefault();
+  const email = e.target.email.value;
+  const password = e.target.password.value;
 
-    login(email, password)
-      .then((result) => {
-        console.log('Login Successful:', result.user);
-        navigate('/');
-      })
-      .catch((error) => {
-        console.error('Login Error:', error.message);
+  login(email, password)
+    .then((result) => {
+      console.log('Login Successful:', result.user);
+      navigate('/');
+    })
+    .catch((error) => {
+      console.error('Login Error:', error.message);
+
+      // ✅ Show toast error message
+      toast.error(`Login failed: ${error.message}`, {
+        position: 'top-center',
+        autoClose: 3000,
+        theme: 'colored',
       });
-  };
+    });
+};
 
   const googleForm = () => {
     googleLogin()
@@ -34,29 +41,31 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 dark:from-cyan-600 dark:to-sky-700 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+        <div className="relative px-4 py-10 bg-white dark:bg-gray-800 shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
             <div>
-              <h1 className="text-2xl font-semibold">Login</h1>
+              <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                Login
+              </h1>
             </div>
             <form onSubmit={handleLogin}>
-              <div className="divide-y divide-gray-200">
-                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 dark:text-gray-300 sm:text-lg sm:leading-7">
                   <div className="relative">
                     <input
                       autoComplete="off"
                       id="email"
                       name="email"
                       type="text"
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-rose-600 dark:focus:border-rose-500 bg-transparent"
                       placeholder="Email address"
                     />
                     <label
                       htmlFor="email"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      className="absolute left-0 -top-3.5 text-gray-600 dark:text-gray-400 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 dark:peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 dark:peer-focus:text-gray-400 peer-focus:text-sm"
                     >
                       Email Address
                     </label>
@@ -67,18 +76,18 @@ const Login = () => {
                       id="password"
                       name="password"
                       type="password"
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-rose-600 dark:focus:border-rose-500 bg-transparent"
                       placeholder="Password"
                     />
                     <label
                       htmlFor="password"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      className="absolute left-0 -top-3.5 text-gray-600 dark:text-gray-400 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 dark:peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 dark:peer-focus:text-gray-400 peer-focus:text-sm"
                     >
                       Password
                     </label>
                   </div>
                   <div className="relative">
-                    <button className="bg-cyan-500 text-white rounded-md px-2 py-1">
+                    <button className="bg-cyan-500 dark:bg-cyan-600 text-white rounded-md px-4 py-2 hover:bg-cyan-600 dark:hover:bg-cyan-700 transition">
                       Submit
                     </button>
                   </div>
@@ -89,7 +98,7 @@ const Login = () => {
           <div className="w-full flex justify-center">
             <button
               onClick={googleForm}
-              className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              className="flex items-center bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-md px-6 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400"
             >
               <svg
                 className="h-6 w-6 mr-2"
@@ -124,8 +133,10 @@ const Login = () => {
             </button>
           </div>
           <div className="mt-4 text-sm flex justify-between items-center">
-            <p className="mr-3 md:mr-0">If you don't have an account..</p>
-            <button className="hover:border register text-white bg-cyan-500 hover:border-indigo-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300">
+            <p className="text-gray-600 dark:text-gray-400 mr-3 md:mr-0">
+              If you don't have an account..
+            </p>
+            <button className="text-white bg-cyan-500 dark:bg-cyan-600 hover:bg-cyan-600 dark:hover:bg-cyan-700 rounded-xl py-2 px-5 font-semibold transition duration-300 hover:scale-110">
               <Link to="/register">Register</Link>
             </button>
           </div>

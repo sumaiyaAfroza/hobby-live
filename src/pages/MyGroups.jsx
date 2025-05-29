@@ -47,14 +47,11 @@ const MyGroups = () => {
   };
 
   return (
-    <div className="p-4 h-screen">
+    <div className="p-4 h-screen my-8">
+      <h1 className='text-center text-2xl font-semibold'>Create your Group</h1>
       {userAddedData.length === 0 ? (
         <div className="flex flex-col justify-center items-center text-center bg-transparent rounded-2xl shadow p-6">
-          {/* <img
-            className="w-80 md:w-[400px] lg:w-[500px] mb-6 opacity-90"
-            src="https://i.ibb.co/TDQrPfG2/hand-drawn-no-data-concept-52683-127823-removebg-preview.png"
-            alt="No data illustration"
-          /> */}
+          
           <Link
             to="/createGroup"
             className="btn btn-primary"
@@ -63,9 +60,9 @@ const MyGroups = () => {
           </Link>
         </div>
       ) : (
-        <div className="mt-5">
+        <div className="mt-5 flex flex-col text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-primary">
-            My Posted Tasks
+
           </h2>
         <div className="overflow-x-auto rounded-xl shadow-md mx-10 mt-10 max-h-[70vh] overflow-y-auto">
           
@@ -91,23 +88,10 @@ const MyGroups = () => {
             </tbody>
           </table>
         </div>
-        <Link to="/createGroup">create</Link>
+        <button className='btn btn-primary mx-auto px-3 text-lg'><Link to="/createGroup">create</Link></button>
       </div>
       )}
     </div>
-
-
-
-
-
-    // <div>
-    //  {
-    //   data.length === 0 ? <> 
-    //   <Link to='/createGroup'> create</Link>
-    //   </> : <> <button>{data.length}</button></> 
-    //  }
-      
-    // </div>
   )
 }
 

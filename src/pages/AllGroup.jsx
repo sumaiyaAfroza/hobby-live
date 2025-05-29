@@ -8,10 +8,13 @@ const AllGroup = () => {
   // const[hobby,setHobby] = useState(loader)
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-3'>
+    <div>
+      <h1 className='text-center font-bold text-3xl mt-16 mb-6'>All About This Group</h1>
+      <div className='grid grid-cols-1 md:grid-cols-3'>
       {
        loader.map(data => <Card data={data}></Card>)
       }
+    </div>
     </div>
   )
 }

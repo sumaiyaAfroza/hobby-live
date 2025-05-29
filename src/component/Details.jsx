@@ -25,7 +25,9 @@ const Details = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-700 rounded-2xl shadow-xl">
+    <div>
+      <h1 className='text-3xl font-semibold text-center mt-8'>Discover the Details</h1>
+      <div className="max-w-3xl my-10 mx-auto p-6 bg-white dark:bg-gray-700 rounded-2xl shadow-xl">
       {/* Image */}
       {imageUrl && (
         <img
@@ -76,6 +78,7 @@ const Details = () => {
             </p>
           )}
       </div>
+    </div>
     </div>
   )
 }
